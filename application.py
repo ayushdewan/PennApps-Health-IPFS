@@ -22,7 +22,7 @@ app.register_blueprint(google_auth.app)
 @app.route('/')
 def index():
     if google_auth.is_logged_in():
-        return render_template("home.html")
+        return render_template("provider.html")
     return render_template("login.html")
 
 def getEmail():
@@ -39,7 +39,6 @@ def family():
     result = []
     return render_template("dashboard.html", table=result)
 
-
 @app.route('/upload')
 def upload():
     return render_template("upload.html")
@@ -47,3 +46,4 @@ def upload():
 @app.route('/user/<username>')
 def show_dash(username):
     return render_template("dashboard.html", username=username)
+

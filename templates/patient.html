@@ -1,0 +1,325 @@
+{% extends 'layout.html'%}
+
+{% block body %}
+<style>
+    .form-popup {
+  display: none;
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  -ms-transform: translate(-50%, -50%);
+  border: 3px solid #f1f1f1;
+  z-index: 9;
+}
+
+/* Add styles to the form container */
+.form-container {
+  max-width: 300px;
+  padding: 10px;
+  background-color: white;
+}
+
+/* Full-width input fields */
+.form-container input[type=text], .form-container input[type=password] {
+  width: 100%;
+  padding: 15px;
+  margin: 5px 0 22px 0;
+  border: none;
+  background: #f1f1f1;
+}
+
+/* When the inputs get focus, do something */
+.form-container input[type=text]:focus, .form-container input[type=password]:focus {
+  background-color: #ddd;
+  outline: none;
+}
+
+/* Set a style for the submit/login button */
+.form-container .btn {
+  background-color: #4CAF50;
+  color: white;
+  padding: 16px 20px;
+  border: none;
+  cursor: pointer;
+  width: 100%;
+  margin-bottom:10px;
+  opacity: 0.8;
+}
+
+/* Add a red background color to the cancel button */
+.form-container .cancel {
+  background-color: red;
+}
+
+/* Add some hover effects to buttons */
+.form-container .btn:hover, .open-button:hover {
+  opacity: 1;
+}
+
+/* Container needed to position the button. Adjust the width as needed */
+.container {
+  position: relative;
+  width: 100%;
+}
+
+/* Make the image responsive */
+.container img {
+  width: 100%;
+  height: auto;
+}
+
+/* Style the button and place it in the middle of the container/image */
+.container .btn {
+  position: absolute;
+  top: 11%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  -ms-transform: translate(-50%, -50%);
+  background-color: #0A369D;
+  color: #F1F6F8;
+  font-size: 16px;
+  padding: 12px 24px;
+  border: none;
+  cursor: pointer;
+  border-radius: 5px;
+}
+
+.container .btn2 {
+  position: absolute;
+  bottom: 3%;
+  left: 12%;
+  transform: translate(-50%, -50%);
+  -ms-transform: translate(-50%, -50%);
+  background-color: #0A369D;
+  color: #F1F6F8;
+  font-size: 16px;
+  padding: 6px 12px;
+  border: none;
+  cursor: pointer;
+  border-radius: 5px;
+}
+
+.container .btn3 {
+  position: absolute;
+  bottom: 3%;
+  left: 34%;
+  transform: translate(-50%, -50%);
+  -ms-transform: translate(-50%, -50%);
+  background-color: #0A369D;
+  color: #F1F6F8;
+  font-size: 16px;
+  padding: 6px 12px;
+  border: none;
+  cursor: pointer;
+  border-radius: 5px;
+}
+
+.container .btn4 {
+  position: absolute;
+  bottom: 3%;
+  left: 56%;
+  transform: translate(-50%, -50%);
+  -ms-transform: translate(-50%, -50%);
+  background-color: #0A369D;
+  color: #F1F6F8;
+  font-size: 16px;
+  padding: 6px 12px;
+  border: none;
+  cursor: pointer;
+  border-radius: 5px;
+}
+
+.container .btn5 {
+  position: absolute;
+  bottom: 60%;
+  left: 83%;
+  transform: translate(-50%, -50%);
+  -ms-transform: translate(-50%, -50%);
+  background-color: #0A369D;
+  color: #F1F6F8;
+  font-size: 16px;
+  padding: 12px 24px;
+  border: none;
+  cursor: pointer;
+  border-radius: 5px;
+}
+
+.container .btn6 {
+  position: absolute;
+  bottom: 20%;
+  left: 83%;
+  transform: translate(-50%, -50%);
+  -ms-transform: translate(-50%, -50%);
+  background-color: #0A369D;
+  color: #F1F6F8;
+  font-size: 16px;
+  padding: 12px 24px;
+  border: none;
+  cursor: pointer;
+  border-radius: 5px;
+}
+
+.container .btn7 {
+  position: absolute;
+  top: 79%;
+  left: 56%;
+  transform: translate(-50%, -50%);
+  -ms-transform: translate(-50%, -50%);
+  background-color: #f1f6f8;
+  color: #f1f6f8;
+  font-size: 16px;
+  padding: 150px 120px;
+  border: none;
+  cursor: pointer;
+  border-radius: 5px;
+}
+
+.container .btn:hover{
+  background-color: #4070C9;
+}
+
+.container .btn2:hover{
+  background-color: #4070C9;
+}
+
+.container .btn3:hover{
+  background-color: #4070C9;
+}
+
+.container .btn4:hover{
+  background-color: #4070C9;
+}
+
+.container .btn5:hover{
+  background-color: #4070C9;
+}
+
+.container .btn6:hover{
+  background-color: #4070C9;
+}
+
+</style>
+<div class="jumbotron" style="padding: 2% 3%; background-color: #f1f6f8;">
+    <div class="container">
+        <img src="static/patients.png" style="width: 100%;">
+        <button class="btn" onclick="openForm()">Add</button>
+        <button class="btn2" onclick="openForm2()">Retrieve</button>
+        <button class="btn3">Retrieve</button>
+        <button class="btn4">Retrieve</button>
+        <button class="btn5" onclick="openForm3()">Request</button>
+        <button class="btn6" onclick="openForm4()">Upload</button>
+        <button class="btn7" id="btn7"></button>
+    </div>
+</div>
+
+    <div class="form-popup" id="add">
+        <form class="form-container">
+          <h2 style="text-align: center; font-size: 20px;">Add a Provider</h2>
+          <h2 style="text-align: center; font-size: 10px;">The Health Insurance Portability and Accountability Act of 1996 (HIPAA) is a federal law that required the creation of national standards to protect sensitive patient health information from being disclosed without the patient's consent or knowledge.</h2>
+      
+          <label for="name"><b>Name of Provider</b></label>
+          <input type="text" placeholder="Enter name" name="name" required>
+
+          <label for="name"><b>Provider ID</b></label>
+          <input type="text" placeholder="Enter ID" name="id" required>
+
+          <label for="name"><b>Location</b></label>
+          <input type="text" placeholder="Enter location" name="location" required>
+      
+          <button type="submit" class="btn" onclick="closeForm()">Request HIPAA Form</button>
+          <button type="button" class="btn cancel" onclick="closeForm()">Close</button>
+        </form>
+    </div>
+
+    <div class="form-popup" id="retrieve">
+        <form class="form-container">
+          <button type="submit" class="btn" onclick="closeForm2()"><a href="static/cart.pdf" download="MRI" style="text-decoration: none; color:white;">PDF</a></button>
+          <button type="submit" class="btn" onclick="closeForm2()">JPEG</button>
+          <button type="submit" class="btn" onclick="closeForm2()">SHARE</button>
+          <button type="button" class="btn cancel" onclick="closeForm2()">Cancel</button>
+        </form>
+    </div>
+
+    <div class="form-popup" id="request">
+        <form class="form-container">
+          <h2 style="text-align: center; font-size: 20px;">Send a Request</h2>
+          <label for="providers">Select a provider:</label>
+          <select id="cars" name="cars">
+            <option value="PennMed">PennMed</option>
+            <option value="Kaiser">Kaiser Permanente</option>
+          </select>
+          <textarea rows="4" cols="38" name="comment" form="usrform" placeholder="Type your request here...">
+            </textarea>
+          <button type="submit" class="btn" onclick="closeForm3()">SEND</button>
+          <button type="button" class="btn cancel" onclick="closeForm3()">Cancel</button>
+        </form>
+    </div>
+
+    <div class="form-popup" id="upload">
+        <form class="form-container">
+          <h2 style="text-align: center; font-size: 20px;">Upload a File to be Verified</h2>
+          
+          <label for="name"><b>Name</b></label>
+          <input type="text" placeholder="Enter name" name="name" required>
+
+          <label for="name"><b>Date</b></label>
+          <input type="text" placeholder="Enter date" name="date" required>
+
+          <label for="providers">Select a provider:</label>
+          <select id="cars" name="cars">
+            <option value="PennMed">PennMed</option>
+            <option value="Kaiser">Kaiser Permanente</option>
+          </select>
+
+          <input type="file" id="myFile" name="filename">
+          <br>
+          <button type="button" class="btn" onclick="closeForm41()">Upload</button>
+          <button type="button" class="btn cancel" onclick="closeForm4()">Cancel</button>
+        </form>
+    </div>
+
+</div>
+
+<script>
+    function openForm() {
+      document.getElementById("add").style.display = "block";
+    }
+    
+    function closeForm() {
+      document.getElementById("add").style.display = "none";
+    }
+
+    function openForm2() {
+      document.getElementById("retrieve").style.display = "block";
+    }
+    
+    function closeForm2() {
+      document.getElementById("retrieve").style.display = "none";
+    }
+
+    function openForm3() {
+      document.getElementById("request").style.display = "block";
+    }
+    
+    function closeForm3() {
+      document.getElementById("request").style.display = "none";
+    }
+
+    function openForm4() {
+      document.getElementById("upload").style.display = "block";
+    }
+    
+    function closeForm4() {
+      document.getElementById("upload").style.display = "none";
+    }
+
+    function closeForm41() {
+      document.getElementById("btn7").style.display = "none";
+      document.getElementById("upload").style.display = "none";
+    }
+
+
+</script>
+
+{% endblock %}
